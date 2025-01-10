@@ -11,6 +11,5 @@ const nextConfig: NextConfig = {
     ],
   },
 };
-pepe aprende
 
 export default nextConfig;
