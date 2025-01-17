@@ -45,6 +45,7 @@ const Layout = ({ children }) => {
                 </a>
             </div>
             <div className="md:w-1/3 flex items-center justify-end space-x-3 -mr-2.5">
+            <Link href="/login">
               <button 
                 className="snipcart-customer-signin appearance-none px-2 text-gray-800 hover:text-blue-600 rounded-md cursor-pointer focus:outline-none focus:text-blue-600 transition relative"
                 aria-label="User login"
@@ -58,6 +59,7 @@ const Layout = ({ children }) => {
                   <path d="M4 22a8 8 0 1 1 16 0h-2a6 6 0 1 0-12 0H4zm8-9c-3.315 0-6-2.685-6-6s2.685-6 6-6 6 2.685 6 6-2.685 6-6 6zm0-2c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4z" />
                 </svg>
               </button>
+              </Link>
                 <a href="/wishlist"
                   className="px-2 text-gray-800 hover:text-blue-600 rounded-md cursor-pointer focus:outline-none focus:text-blue-600 relative transition"
                   aria-label="Wishlist"
