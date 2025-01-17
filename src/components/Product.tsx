@@ -6,11 +6,13 @@ import useWishlistState from "../hooks/useWishlistState";
 
 import VariantPicker from "./VariantPicker";
 
+
 const Product = (product) => {
   const { addItem } = useWishlistDispatch();
   const { isSaved } = useWishlistState();
 
   const { id, name, variants } = product;
+
   const [firstVariant] = variants;
   const oneStyle = variants.length === 1;
 
