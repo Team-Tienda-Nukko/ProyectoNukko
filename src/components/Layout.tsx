@@ -1,6 +1,5 @@
 import Link from "next/link";
 
-
 import useWishlistState from "../hooks/useWishlistState";
 import useSnipcartCount from "../hooks/useSnipcartCount";
 
@@ -56,7 +55,7 @@ const Layout = ({ children }) => {
             <Link href="/login" aria-label="User login">
               <button
                 className="snipcart-customer-signin appearance-none px-2 text-gray-800 hover:text-blue-600 rounded-md cursor-pointer focus:outline-none focus:text-blue-600 transition relative"
-              >
+              
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
