@@ -1,8 +1,9 @@
 import React from "react";
 
 const Register = () => {
-    return (
-      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+  return (
+    <div className="min-h-screen flex flex-col">
+      <div className="flex-grow flex items-center justify-center">
         <div className="bg-white shadow-md rounded-lg p-8 w-full max-w-md">
           <h1 className="text-2xl font-semibold text-center mb-6">Create an account</h1>
           <p className="text-center text-sm text-gray-600 mb-4">
@@ -77,7 +78,9 @@ const Register = () => {
             </a>
           </div>
         </div>
-        <footer className="bg-gray-100 py-10">
+      </div>
+
+      <footer className="pt-20 py-10">
         <div className="max-w-screen-xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-6 text-center md:text-left">
           <div>
             <h2 className="font-bold mb-2">NUKKO®</h2>
@@ -117,9 +120,8 @@ const Register = () => {
           </div>
         </div>
       </footer>
-      </div>
-    );
-  };
-  
-  export default Register;
-  
+    </div>
+  );
+};
+
+export default Register;
