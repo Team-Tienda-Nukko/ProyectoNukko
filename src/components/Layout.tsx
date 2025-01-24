@@ -50,9 +50,20 @@ const Layout = ({ children }) => {
               </Link>
             </div>
             <div className="md:w-1/3 flex items-center justify-end space-x-3 -mr-2.5">
+<<<<<<< HEAD
               <Link href="/login" aria-label="User login">
                 <button
                   className="snipcart-customer-signin appearance-none px-2 text-gray-800 hover:text-blue-600 rounded-md cursor-pointer focus:outline-none focus:text-blue-600 transition relative"
+=======
+            <Link href="/login" aria-label="User login">
+              <button
+                className="snipcart-customer-signin appearance-none px-2 text-gray-800 hover:text-blue-600 rounded-md cursor-pointer focus:outline-none focus:text-blue-600 transition relative"
+              
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  className="w-6 h-6 fill-current"
+>>>>>>> 58e6536bc64ffcb387447616260a24913f324d8b
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
