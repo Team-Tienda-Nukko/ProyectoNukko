@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Head from "next/head";
 import { GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../utils/Firebase"; 
+import { auth } from "../utils/Firebase";
 
 const provider = new GoogleAuthProvider();
 
@@ -40,20 +40,17 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="bg-gray-50 font-sans min-h-screen">
-      <Head>
-        <title>Login Page</title>
-      </Head>
-
-      <main className="flex items-center justify-center min-h-screen bg-gray-100">
-        <div className="w-full max-w-md p-6 bg-white rounded shadow-md">
-          <h1 className="text-2xl font-bold text-center mb-4">Log in</h1>
+        <div className="w-full h-full bg-white p-8 flex flex-col justify-center items-center">
+          <h1 className="text-5xl font-bold text-center mb-8">Log in</h1>
           {error && (
             <div className="mb-4 text-sm text-red-500 border border-red-500 rounded p-2">
               {error}
             </div>
           )}
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form
+            onSubmit={handleSubmit}
+            className="w-full max-w-md space-y-6"
+          >
             <input
               type="email"
               placeholder="Email"
@@ -79,10 +76,10 @@ const Login: React.FC = () => {
               type="submit"
               className="w-full bg-black text-white py-3 rounded hover:bg-gray-800"
             >
-              Check In
+              Log In
             </button>
           </form>
-          <div className="mt-4 text-center">
+          <div className="mt-6 w-full max-w-md">
             <button
               onClick={handleGoogleSignIn}
               className="w-full bg-red-500 text-white py-3 rounded hover:bg-red-600"
@@ -90,14 +87,12 @@ const Login: React.FC = () => {
               Sign in with Google
             </button>
           </div>
-          <p className="mt-4 text-center text-sm">
+          <p className="mt-6 text-center text-sm">
             <a href="#" className="text-blue-500 hover:underline">
               Return to principal page
             </a>
           </p>
         </div>
-      </main>
-    </div>
   );
 };
 
