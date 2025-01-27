@@ -40,7 +40,7 @@ const Layout = ({ children }) => {
                     </svg>
                   </div>
                   <span className="text-lg font-medium">
-                    Headless Dropshipping Starter
+                    Nukko 
                   </span>
                 </a>
             </div>
