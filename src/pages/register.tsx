@@ -1,81 +1,131 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from '../utils/Firebase'; 
 
-const Register = () => {
+const Register: React.FC = () => {
+  const [name, setName] = useState<string>("");
+  const [surname, setSurname] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [error, setError] = useState<string | null>(null);
+  const [username, setUsername] = useState<string | null>(
+    typeof window !== "undefined" ? localStorage.getItem("username") : null
+  );
+
+  useEffect(() => {
+    // Cargar el nombre de usuario desde localStorage al montar
+    const storedUsername = localStorage.getItem("username");
+    if (storedUsername) {
+      setUsername(storedUsername);
+    }
+  }, []);
+
+  const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setError(null);
+
+    if (!email || !password || !name || !surname) {
+      setError("Please fill in all fields.");
+      return;
+    }
+
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+
+      // Guardar el nombre de usuario en localStorage
+      const username = `${name} ${surname}` || "User";
+      localStorage.setItem("username", username);
+      setUsername(username);
+
+      alert(`Welcome, ${username}!`);
+    } catch (err) {
+      setError("Error creating account: " + err.message);
+    }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("username");
+    setUsername(null);
+    alert("You have logged out.");
+  };
+
   return (
     <div className="min-h-screen flex flex-col">
       <div className="flex-grow flex items-center justify-center">
         <div className="bg-white shadow-md rounded-lg p-8 w-full max-w-md">
           <h1 className="text-2xl font-semibold text-center mb-6">Create an account</h1>
-          <p className="text-center text-sm text-gray-600 mb-4">
-            Already have an account?{" "}
-            <a href="#" className="text-blue-500 hover:underline">
-              Sign up here.
-            </a>
-          </p>
-          <form>
-            <div className="mb-4">
-              <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                Name
-              </label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                className="mt-1 p-2 w-full border rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                placeholder="Enter your name"
-                required
-              />
+          {error && <p className="text-red-500 text-center">{error}</p>}
+          {username ? (
+            <div className="text-center">
+              <p className="text-lg mb-4">Welcome, {username}!</p>
+              <button
+                onClick={handleLogout}
+                className="w-full bg-red-500 text-white py-2 rounded hover:bg-red-600"
+              >
+                Logout
+              </button>
             </div>
-            <div className="mb-4">
-              <label htmlFor="surname" className="block text-sm font-medium text-gray-700">
-                Surname
-              </label>
-              <input
-                type="text"
-                id="surname"
-                name="surname"
-                className="mt-1 p-2 w-full border rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                placeholder="Enter your surname"
-                required
-              />
-            </div>
-            <div className="mb-4">
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                Email
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                className="mt-1 p-2 w-full border rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                placeholder="Enter your email"
-                required
-              />
-            </div>
-            <div className="mb-6">
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-                Password
-              </label>
-              <input
-                type="password"
-                id="password"
-                name="password"
-                className="mt-1 p-2 w-full border rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                placeholder="Enter your password"
-                required
-              />
-            </div>
-            <button
-              type="submit"
-              className="w-full bg-black text-white py-2 px-4 rounded-md hover:bg-gray-800 transition"
-            >
-              Create
-            </button>
-          </form>
+          ) : (
+            <form onSubmit={handleRegister}>
+              <div className="mb-4">
+                <label htmlFor="name" className="block text-sm font-medium text-gray-700">Name</label>
+                <input
+                  type="text"
+                  id="name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="mt-1 p-2 w-full border rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                  placeholder="Enter your name"
+                  required
+                />
+              </div>
+              <div className="mb-4">
+                <label htmlFor="surname" className="block text-sm font-medium text-gray-700">Surname</label>
+                <input
+                  type="text"
+                  id="surname"
+                  value={surname}
+                  onChange={(e) => setSurname(e.target.value)}
+                  className="mt-1 p-2 w-full border rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                  placeholder="Enter your surname"
+                  required
+                />
+              </div>
+              <div className="mb-4">
+                <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="mt-1 p-2 w-full border rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                  placeholder="Enter your email"
+                  required
+                />
+              </div>
+              <div className="mb-6">
+                <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
+                <input
+                  type="password"
+                  id="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="mt-1 p-2 w-full border rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                  placeholder="Enter your password"
+                  required
+                />
+              </div>
+              <button
+                type="submit"
+                className="w-full bg-black text-white py-2 px-4 rounded-md hover:bg-gray-800 transition"
+              >
+                Create
+              </button>
+            </form>
+          )}
           <div className="mt-4 text-center">
-            <a href="" className="text-sm text-blue-500 hover:underline">
-              Return to principal page
-            </a>
+            <a href="#" className="text-sm text-blue-500 hover:underline">Return to principal page</a>
           </div>
         </div>
       </div>
@@ -111,12 +161,6 @@ const Register = () => {
               <li><a href="#" className="hover:underline">Contact</a></li>
               <li><a href="#" className="hover:underline">About Us</a></li>
             </ul>
-          </div>
-          <div>
-            <h2 className="font-bold mb-2">News</h2>
-            <p className="text-sm text-gray-600">
-              Sign up to our Newsletter and get a 10% discount on your first order.
-            </p>
           </div>
         </div>
       </footer>
