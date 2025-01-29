@@ -17,70 +17,26 @@ const ProductGrid = ({ products }) => {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold text-center my-4">All Products</h1>
+      
 
-      {/* Botones para filtrar */}
-      <div className="flex justify-center flex-wrap gap-4 mb-6">
-        <button
-          onClick={() => setFilter(null)}
-          className={`px-4 py-2 rounded ${filter === null ? "bg-blue-500 text-white" : "bg-gray-200"}`}
+      {/* Selector desplegable para filtrar */}
+      <div className="flex justify-center mb-6">
+        <select
+          onChange={(e) => setFilter(e.target.value || null)}
+          value={filter || ""}
+          className="px-4 py-2 border border-gray-300 rounded"
         >
-          Todos
-        </button>
-        <button
-          onClick={() => setFilter("T-shirt")}
-          className={`px-4 py-2 rounded ${filter === "T-shirt" ? "bg-blue-500 text-white" : "bg-gray-200"}`}
-        >
-          T-shirt
-        </button>
-        <button
-          onClick={() => setFilter("Boxer")}
-          className={`px-4 py-2 rounded ${filter === "Boxer" ? "bg-blue-500 text-white" : "bg-gray-200"}`}
-        >
-          Boxer
-        </button>
-        <button
-          onClick={() => setFilter("Polo")}
-          className={`px-4 py-2 rounded ${filter === "Polo" ? "bg-blue-500 text-white" : "bg-gray-200"}`}
-        >
-          Polo
-        </button>
-        <button
-          onClick={() => setFilter("Funda Iphone")}
-          className={`px-4 py-2 rounded ${filter === "Funda Iphone" ? "bg-blue-500 text-white" : "bg-gray-200"}`}
-        >
-          Funda Iphone
-        </button>
-        <button
-          onClick={() => setFilter("Towel")}
-          className={`px-4 py-2 rounded ${filter === "Towel" ? "bg-blue-500 text-white" : "bg-gray-200"}`}
-        >
-          Towel
-        </button>
-        <button
-          onClick={() => setFilter("Hoodie")}
-          className={`px-4 py-2 rounded ${filter === "Hoodie" ? "bg-blue-500 text-white" : "bg-gray-200"}`}
-        >
-          Hoodie
-        </button>
-        <button
-          onClick={() => setFilter("Bag")}
-          className={`px-4 py-2 rounded ${filter === "Bag" ? "bg-blue-500 text-white" : "bg-gray-200"}`}
-        >
-          Bag
-        </button>
-        <button
-          onClick={() => setFilter("Gorra")}
-          className={`px-4 py-2 rounded ${filter === "Gorra" ? "bg-blue-500 text-white" : "bg-gray-200"}`}
-        >
-          Gorra
-        </button>
-        <button
-          onClick={() => setFilter("Patches")}
-          className={`px-4 py-2 rounded ${filter === "Patches" ? "bg-blue-500 text-white" : "bg-gray-200"}`}
-        >
-          Patches
-        </button>
+          <option value="">Todos</option>
+          <option value="T-shirt">T-shirt</option>
+          <option value="Boxer">Boxer</option>
+          <option value="Polo">Polo</option>
+          <option value="Funda Iphone">Funda Iphone</option>
+          <option value="Towel">Towel</option>
+          <option value="Hoodie">Hoodie</option>
+          <option value="Bag">Bag</option>
+          <option value="Gorra">Gorra</option>
+          <option value="Patches">Patches</option>
+        </select>
       </div>
 
       {/* Mostrar productos filtrados */}
