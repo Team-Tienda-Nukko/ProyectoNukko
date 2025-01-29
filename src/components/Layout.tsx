@@ -1,5 +1,5 @@
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
-
 import useWishlistState from "../hooks/useWishlistState";
 import useSnipcartCount from "../hooks/useSnipcartCount";
 
@@ -7,6 +7,13 @@ const Layout = ({ children }) => {
   const { hasItems } = useWishlistState();
   const { cart } = useSnipcartCount();
   const cartHasItems = cart.items.count !== 0;
+  const [username, setUsername] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Recuperar el username desde localStorage
+    const storedUsername = localStorage.getItem("username");
+    setUsername(storedUsername);
+  }, []);
 
   return (
     <>
@@ -19,6 +26,7 @@ const Layout = ({ children }) => {
       <header className="py-6 md:py-12">
         <div className="max-w-6xl mx-auto px-6">
           <div className="flex items-center justify-between">
+            {/* Navegación izquierda */}
             <div className="md:w-1/3">
               <nav className="flex items-center justify-start space-x-3 md:space-x-6">
                 <Link href="/about">
@@ -33,6 +41,8 @@ const Layout = ({ children }) => {
                 </Link>
               </nav>
             </div>
+
+            {/* Logo */}
             <div className="flex-1 flex items-center justify-center">
               <Link href="/">
                 <a className="flex items-center text-gray-900">
@@ -49,21 +59,13 @@ const Layout = ({ children }) => {
                 </a>
               </Link>
             </div>
+
+            {/* Navegación derecha */}
             <div className="md:w-1/3 flex items-center justify-end space-x-3 -mr-2.5">
-<<<<<<< HEAD
+              {/* Botón de login */}
               <Link href="/login" aria-label="User login">
                 <button
-                  className="snipcart-customer-signin appearance-none px-2 text-gray-800 hover:text-blue-600 rounded-md cursor-pointer focus:outline-none focus:text-blue-600 transition relative"
-=======
-            <Link href="/login" aria-label="User login">
-              <button
-                className="snipcart-customer-signin appearance-none px-2 text-gray-800 hover:text-blue-600 rounded-md cursor-pointer focus:outline-none focus:text-blue-600 transition relative"
-              
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  className="w-6 h-6 fill-current"
->>>>>>> 58e6536bc64ffcb387447616260a24913f324d8b
+                  className="snipcart-customer-signin appearance-none px-2 text-gray-800 hover:text-blue-600 rounded-md cursor-pointer focus:outline-none focus:text-blue-600 transition"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -75,6 +77,8 @@ const Layout = ({ children }) => {
                   </svg>
                 </button>
               </Link>
+
+              {/* Botón de wishlist */}
               <Link href="/wishlist">
                 <a
                   className="px-2 text-gray-800 hover:text-blue-600 rounded-md cursor-pointer focus:outline-none focus:text-blue-600 relative transition"
@@ -93,22 +97,26 @@ const Layout = ({ children }) => {
                   </svg>
                 </a>
               </Link>
-              <button
-                className="snipcart-checkout appearance-none px-2 text-gray-800 hover:text-blue-600 rounded-md cursor-pointer focus:outline-none focus:text-blue-600 transition relative"
-                aria-label="Cart"
-              >
-                {cartHasItems && (
-                  <span className="absolute bg-blue-600 rounded-full w-2 h-2 top-0 right-0 -mt-1 -mr-1"></span>
-                )}
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  className="w-6 h-6 fill-current"
+
+              {/* Botón de carrito (solo si el usuario está logueado) */}
+              {username && (
+                <button
+                  className="snipcart-checkout appearance-none px-2 text-gray-800 hover:text-blue-600 rounded-md cursor-pointer focus:outline-none focus:text-blue-600 transition relative"
+                  aria-label="Cart"
                 >
-                  <path fill="none" d="M0 0h24v24H0z" />
-                  <path d="M4 16V4H2V2h3a1 1 0 0 1 1 1v12h12.438l2-8H8V5h13.72a1 1 0 0 1 .97 1.243l-2.5 10a1 1 0 0 1-.97.757H5a1 1 0 0 1-1-1zm2 7a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm12 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4z" />
-                </svg>
-              </button>
+                  {cartHasItems && (
+                    <span className="absolute bg-blue-600 rounded-full w-2 h-2 top-0 right-0 -mt-1 -mr-1"></span>
+                  )}
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    className="w-6 h-6 fill-current"
+                  >
+                    <path fill="none" d="M0 0h24v24H0z" />
+                    <path d="M4 16V4H2V2h3a1 1 0 0 1 1 1v12h12.438l2-8H8V5h13.72a1 1 0 0 1 .97 1.243l-2.5 10a1 1 0 0 1-.97.757H5a1 1 0 0 1-1-1zm2 7a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm12 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4z" />
+                  </svg>
+                </button>
+              )}
             </div>
           </div>
         </div>
@@ -122,16 +130,10 @@ const Layout = ({ children }) => {
       {/* Footer */}
       <footer className="max-w-6xl mx-auto px-6">
         <div className="py-6 border-t border-gray-100 text-center flex flex-col md:flex-row items-center justify-between">
-          
           <nav className="flex items-center justify-end space-x-3 md:space-x-6">
             <Link href="/about">
               <a className="text-gray-800 hover:text-blue-600 p-1 transition text-sm">
                 FAQS
-              </a>
-            </Link>
-            <Link href="/terms-of-sale">
-              <a className="text-gray-800 hover:text-blue-600 p-1 transition text-sm">
-                Terms of Sale
               </a>
             </Link>
           </nav>
