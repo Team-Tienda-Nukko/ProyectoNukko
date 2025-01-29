@@ -1,15 +1,14 @@
 import { useState } from "react";
 import Image from "next/image";
-
 import useWishlistDispatch from "../hooks/useWishlistDispatch";
 import useWishlistState from "../hooks/useWishlistState";
-
 import VariantPicker from "./VariantPicker";
-
+import  useAuth  from "../hooks/useAuth"; 
 
 const Product = (product) => {
   const { addItem } = useWishlistDispatch();
   const { isSaved } = useWishlistState();
+  const { user } = useAuth(); // Verifica el usuario autenticado
 
   const { id, name, variants } = product;
 
@@ -90,17 +89,24 @@ const Product = (product) => {
           variants={variants}
           disabled={oneStyle}
         />
-        <button
-          className="snipcart-add-item w-full md:w-auto transition flex-shrink-0 py-2 px-4 border border-gray-300 hover:border-transparent shadow-sm text-sm font-medium bg-white text-gray-900 focus:text-white hover:bg-blue-600 hover:text-white focus:bg-blue-600 focus:outline-none rounded"
-          data-item-id={activeVariantExternalId}
-          data-item-price={activeVariant.retail_price}
-          data-item-url={`/api/products/${activeVariantExternalId}`}
-          data-item-description={activeVariant.name}
-          data-item-image={activeVariantFile.preview_url}
-          data-item-name={name}
-        >
-          Add to Cart
-        </button>
+        {/* Solo mostrar el botón "Add to Cart" si el usuario está logueado */}
+        {user ? (
+          <button
+            className="snipcart-add-item w-full md:w-auto transition flex-shrink-0 py-2 px-4 border border-gray-300 hover:border-transparent shadow-sm text-sm font-medium bg-white text-gray-900 focus:text-white hover:bg-blue-600 hover:text-white focus:bg-blue-600 focus:outline-none rounded"
+            data-item-id={activeVariantExternalId}
+            data-item-price={activeVariant.retail_price}
+            data-item-url={`/api/products/${activeVariantExternalId}`}
+            data-item-description={activeVariant.name}
+            data-item-image={activeVariantFile.preview_url}
+            data-item-name={name}
+          >
+            Add to Cart
+          </button>
+        ) : (
+          <p className="text-center text-sm text-gray-500 mt-2">
+            Please log in to add items to the cart.
+          </p>
+        )}
       </div>
     </article>
   );
