@@ -1,13 +1,11 @@
-import React, { useState, useEffect } from "react";
-import Link from "next/link";
-import useWishlistState from "../hooks/useWishlistState";
-import useSnipcartCount from "../hooks/useSnipcartCount";
+
+import { useRouter } from "next/router";
+import useAuth from "../hooks/useAuth";
+import Link from 'next/link'; 
 
 const Layout = ({ children }) => {
-  const { hasItems } = useWishlistState();
-  const { cart } = useSnipcartCount();
-  const cartHasItems = cart.items.count !== 0;
-  const [username, setUsername] = useState<string | null>(null);
+  const { user } = useAuth(); // Obtiene el usuario desde el hook
+  const router = useRouter();
 
   useEffect(() => {
     // Recuperar el username desde localStorage al cargar la página
@@ -41,43 +39,31 @@ const Layout = ({ children }) => {
             {/* Navegación izquierda */}
             <div className="md:w-1/3">
               <nav className="flex items-center justify-start space-x-3 md:space-x-6">
-                <Link href="/about">
-                  <a className="text-gray-800 hover:text-blue-600 p-1 transition">
-                    About
-                  </a>
-                </Link>
-                <Link href="/terms-of-sale">
-                  <a className="text-gray-800 hover:text-blue-600 p-1 transition">
-                    Terms of Sale
-                  </a>
-                </Link>
+                <a className="text-gray-800 hover:text-blue-600 p-1 transition" href="/about">
+                  About
+                </a>
+                <a className="text-gray-800 hover:text-blue-600 p-1 transition" href="/terms-of-sale">
+                  Terms of Sale
+                </a>
               </nav>
             </div>
 
             {/* Logo */}
             <div className="flex-1 flex items-center justify-center">
-              <Link href="/">
-                <a className="flex items-center text-gray-900">
-                  <div className="rounded-full w-12 h-12 flex items-center justify-center mr-4 overflow-hidden">
-                    <img
-                      src="/logo.jpg"
-                      alt="Nukko Logo"
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <span className="text-lg font-medium">
-                    <b>Nukko</b>
-                  </span>
-                </a>
-              </Link>
+
+              <a className="flex items-center text-gray-900" href="/">
+                <div className="rounded-full w-12 h-12 flex items-center justify-center mr-4">
+                  {/* Logo aquí */}
+                </div>
+                <span className="text-lg font-medium">Nukko</span>
+              </a>
             </div>
 
             {/* Navegación derecha */}
             <div className="md:w-1/3 flex items-center justify-end space-x-3 -mr-2.5">
-              {/* Botón de login */}
-              <Link href="/login" aria-label="User login">
+              <Link href="/login">
                 <button
-                  className="snipcart-customer-signin appearance-none px-2 text-gray-800 hover:text-blue-600 rounded-md cursor-pointer focus:outline-none focus:text-blue-600 transition"
+                  className="snipcart-customer-signin appearance-none px-2 text-gray-800 hover:text-blue-600 rounded-md cursor-pointer focus:outline-none focus:text-blue-600 transition relative"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -138,6 +124,7 @@ const Layout = ({ children }) => {
       <main className="pt-16">
         <div className="max-w-6xl mx-auto px-6">{children}</div>
       </main>
+
     </>
   );
 };

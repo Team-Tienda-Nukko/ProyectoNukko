@@ -60,33 +60,18 @@ const Login: React.FC = () => {
     }
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem("username");
-    setUsername(null);
-    alert("You have logged out.");
-  };
-
   return (
-    <div className="w-full h-full bg-white p-8 flex flex-col justify-center items-center">
-      <h1 className="text-5xl font-bold text-center mb-8">Log in</h1>
-      {username ? (
-        <div className="text-center">
-          <p className="text-lg mb-4">Welcome, {username}!</p>
-          <button
-            onClick={handleLogout}
-            className="w-full max-w-md bg-red-500 text-white py-3 rounded hover:bg-red-600"
-          >
-            Logout
-          </button>
-        </div>
-      ) : (
-        <>
+        <div className="w-full h-full bg-white p-8 flex flex-col justify-center items-center">
+          <h1 className="text-5xl font-bold text-center mb-8">Log in</h1>
           {error && (
             <div className="mb-4 text-sm text-red-500 border border-red-500 rounded p-2">
               {error}
             </div>
           )}
-          <form onSubmit={handleSubmit} className="w-full max-w-md space-y-6">
+          <form
+            onSubmit={handleSubmit}
+            className="w-full max-w-md space-y-6"
+          >
             <input
               type="email"
               placeholder="Email"
@@ -131,6 +116,7 @@ const Login: React.FC = () => {
         </a>
       </p>
     </div>
+
   );
 };
 

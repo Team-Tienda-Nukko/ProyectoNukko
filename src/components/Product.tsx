@@ -1,16 +1,17 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
-
 import useWishlistDispatch from "../hooks/useWishlistDispatch";
 import useWishlistState from "../hooks/useWishlistState";
-
 import VariantPicker from "./VariantPicker";
+import  useAuth  from "../hooks/useAuth"; 
 
 const Product = (product) => {
   const { addItem } = useWishlistDispatch();
   const { isSaved } = useWishlistState();
+  const { user } = useAuth(); // Verifica el usuario autenticado
 
   const { id, name, variants } = product;
+
   const [firstVariant] = variants;
   const oneStyle = variants.length === 1;
 
@@ -106,6 +107,7 @@ const Product = (product) => {
 
         {/* Mostrar el botón "Add to Cart" solo si el usuario está autenticado */}
         {username && (
+
           <button
             className="snipcart-add-item w-full md:w-auto transition flex-shrink-0 py-2 px-4 border border-gray-300 hover:border-transparent shadow-sm text-sm font-medium bg-white text-gray-900 focus:text-white hover:bg-blue-600 hover:text-white focus:bg-blue-600 focus:outline-none rounded"
             data-item-id={activeVariantExternalId}
@@ -117,6 +119,7 @@ const Product = (product) => {
           >
             Add to Cart
           </button>
+
         )}
       </div>
     </article>
