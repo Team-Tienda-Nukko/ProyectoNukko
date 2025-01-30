@@ -98,47 +98,38 @@ const Layout = ({ children }) => {
                 </a>
               </Link>
 
-              {/* Botón de carrito (solo si el usuario está logueado) */}
-              {username && (
-                <button
-                  className="snipcart-checkout appearance-none px-2 text-gray-800 hover:text-blue-600 rounded-md cursor-pointer focus:outline-none focus:text-blue-600 transition relative"
-                  aria-label="Cart"
+              {/* Botón de carrito SIEMPRE visible */}
+              <button
+                className="snipcart-checkout appearance-none px-2 text-gray-800 hover:text-blue-600 rounded-md cursor-pointer focus:outline-none focus:text-blue-600 transition relative"
+                aria-label="Cart"
+                onClick={() => {
+                  if (!username) {
+                    window.location.href = "/login"; // Redirigir al login si no está autenticado
+                  } else {
+                    window.Snipcart.api.modal.show(); // Abrir el checkout si está autenticado
+                  }
+                }}
+              >
+                {cartHasItems && (
+                  <span className="absolute bg-blue-600 rounded-full w-2 h-2 top-0 right-0 -mt-1 -mr-1"></span>
+                )}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  className="w-6 h-6 fill-current"
                 >
-                  {cartHasItems && (
-                    <span className="absolute bg-blue-600 rounded-full w-2 h-2 top-0 right-0 -mt-1 -mr-1"></span>
-                  )}
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    className="w-6 h-6 fill-current"
-                  >
-                    <path fill="none" d="M0 0h24v24H0z" />
-                    <path d="M4 16V4H2V2h3a1 1 0 0 1 1 1v12h12.438l2-8H8V5h13.72a1 1 0 0 1 .97 1.243l-2.5 10a1 1 0 0 1-.97.757H5a1 1 0 0 1-1-1zm2 7a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm12 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4z" />
-                  </svg>
-                </button>
-              )}
+                  <path fill="none" d="M0 0h24v24H0z" />
+                  <path d="M4 16V4H2V2h3a1 1 0 0 1 1 1v12h12.438l2-8H8V5h13.72a1 1 0 0 1 .97 1.243l-2.5 10a1 1 0 0 1-.97.757H5a1 1 0 0 1-1-1zm2 7a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm12 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4z" />
+                </svg>
+              </button>
             </div>
           </div>
         </div>
       </header>
 
-      {/* Contenido principal */}
       <main className="pt-16">
         <div className="max-w-6xl mx-auto px-6">{children}</div>
       </main>
-
-      {/* Footer */}
-      <footer className="max-w-6xl mx-auto px-6">
-        <div className="py-6 border-t border-gray-100 text-center flex flex-col md:flex-row items-center justify-between">
-          <nav className="flex items-center justify-end space-x-3 md:space-x-6">
-            <Link href="/about">
-              <a className="text-gray-800 hover:text-blue-600 p-1 transition text-sm">
-                FAQS
-              </a>
-            </Link>
-          </nav>
-        </div>
-      </footer>
     </>
   );
 };
