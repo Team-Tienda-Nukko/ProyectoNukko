@@ -1,4 +1,4 @@
-// src/components/Layout.tsx
+
 import { useRouter } from "next/router";
 import useAuth from "../hooks/useAuth";
 import Link from 'next/link'; 
@@ -19,9 +19,16 @@ const Layout = ({ children }) => {
 
   return (
     <>
+      {/* Encabezado fijo superior */}
+      <div className="top-0 left-0 w-full bg-grey-100 text-grey-900 text-sm md:text-base font-medium py-2 shadow z-50 text-center">
+        Envíos <b>GRATIS</b> a partir de 40€
+      </div>
+
+      {/* Encabezado principal */}
       <header className="py-6 md:py-12">
         <div className="max-w-6xl mx-auto px-6">
           <div className="flex items-center justify-between">
+            {/* Navegación izquierda */}
             <div className="md:w-1/3">
               <nav className="flex items-center justify-start space-x-3 md:space-x-6">
                 <a className="text-gray-800 hover:text-blue-600 p-1 transition" href="/about">
@@ -32,7 +39,10 @@ const Layout = ({ children }) => {
                 </a>
               </nav>
             </div>
+
+            {/* Logo */}
             <div className="flex-1 flex items-center justify-center">
+
               <a className="flex items-center text-gray-900" href="/">
                 <div className="rounded-full w-12 h-12 flex items-center justify-center mr-4">
                   {/* Logo aquí */}
@@ -41,6 +51,7 @@ const Layout = ({ children }) => {
               </a>
             </div>
 
+            {/* Navegación derecha */}
             <div className="md:w-1/3 flex items-center justify-end space-x-3 -mr-2.5">
               <Link href="/login">
                 <button
@@ -74,9 +85,13 @@ const Layout = ({ children }) => {
           </div>
         </div>
       </header>
-      <main className="py-6 md:py-12">
+
+      {/* Contenido principal */}
+      <main className="pt-16">
         <div className="max-w-6xl mx-auto px-6">{children}</div>
       </main>
+
+      {/* Footer */}
       <footer className="max-w-6xl mx-auto px-6">
         <div className="py-6 border-t border-gray-100 text-center flex flex-col md:flex-row items-center justify-between">
           <p className="text-gray-600 text-sm">
