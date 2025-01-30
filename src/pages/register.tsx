@@ -1,103 +1,86 @@
-import { useState } from "react";
+import React from "react";
 
 const Register = () => {
-  const [form, setForm] = useState({
-    name: "",
-    surname: "",
-    email: "",
-    password: "",
-  });
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setForm({ ...form, [name]: value });
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log("Form Data: ", form);
-    // Aquí puedes agregar la lógica para enviar los datos a un backend
-  };
-
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
-        <h1 className="text-2xl font-bold text-center mb-4">Create an account</h1>
-        <p className="text-center text-gray-600 mb-6">
-          Already have an account? <a href="/login" className="text-blue-500">Sign in here</a>.
-        </p>
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-              Name
-            </label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={form.name}
-              onChange={handleChange}
-              className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-              required
-            />
+    <div className="min-h-screen flex flex-col">
+      <div className="flex-grow flex items-center justify-center">
+        <div className="bg-white shadow-md rounded-lg p-8 w-full max-w-md">
+          <h1 className="text-2xl font-semibold text-center mb-6">Create an account</h1>
+          <p className="text-center text-sm text-gray-600 mb-4">
+            Already have an account?{" "}
+            <a href="#" className="text-blue-500 hover:underline">
+              Sign up here.
+            </a>
+          </p>
+          <form>
+            <div className="mb-4">
+              <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+                Name
+              </label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                className="mt-1 p-2 w-full border rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                placeholder="Enter your name"
+                required
+              />
+            </div>
+            <div className="mb-4">
+              <label htmlFor="surname" className="block text-sm font-medium text-gray-700">
+                Surname
+              </label>
+              <input
+                type="text"
+                id="surname"
+                name="surname"
+                className="mt-1 p-2 w-full border rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                placeholder="Enter your surname"
+                required
+              />
+            </div>
+            <div className="mb-4">
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                Email
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                className="mt-1 p-2 w-full border rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                placeholder="Enter your email"
+                required
+              />
+            </div>
+            <div className="mb-6">
+              <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+                Password
+              </label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                className="mt-1 p-2 w-full border rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                placeholder="Enter your password"
+                required
+              />
+            </div>
+            <button
+              type="submit"
+              className="w-full bg-black text-white py-2 px-4 rounded-md hover:bg-gray-800 transition"
+            >
+              Create
+            </button>
+          </form>
+          <div className="mt-4 text-center">
+            <a href="" className="text-sm text-blue-500 hover:underline">
+              Return to principal page
+            </a>
           </div>
-          <div className="mb-4">
-            <label htmlFor="surname" className="block text-sm font-medium text-gray-700">
-              Surname
-            </label>
-            <input
-              type="text"
-              id="surname"
-              name="surname"
-              value={form.surname}
-              onChange={handleChange}
-              className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={form.email}
-              onChange={handleChange}
-              className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-              required
-            />
-          </div>
-          <div className="mb-6">
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={form.password}
-              onChange={handleChange}
-              className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-              required
-            />
-          </div>
-          <button
-            type="submit"
-            className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-200"
-          >
-            Create
-          </button>
-        </form>
-        <button
-          onClick={() => window.location.href = "/"}
-          className="w-full mt-4 bg-gray-200 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-300 transition duration-200"
-        >
-          Return to principal page
-        </button>
+        </div>
       </div>
-      <footer className="bg-gray-100 py-10">
+
+      <footer className="pt-20 py-10">
         <div className="max-w-screen-xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-6 text-center md:text-left">
           <div>
             <h2 className="font-bold mb-2">NUKKO®</h2>

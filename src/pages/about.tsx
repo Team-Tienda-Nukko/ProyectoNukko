@@ -1,23 +1,33 @@
 function TermsPage() {
   return (
-    <div className="max-w-xl mx-auto prose prose-blue">
-      <h2>Welcome</h2>
+    <div className="max-w-xl mx-auto prose prose-red text-gray-800">
+      <h2 className="text-center text-3xl font-bold mb-4">¡Bienvenidos a Nukko!</h2>
       <p>
-        You&apos;re viewing the{" "}
+        Nos complace presentar{" "}
         <a
-          href="https://headlessdropshipping.com/"
-          title="Learn more about Headless Dropshipping"
+          href="https://nukko.com/"
+          title="Descubre más sobre Nukko"
           target="_blank"
           rel="noopener noreferrer"
+          className="text-red-600 hover:underline"
         >
-          Headless Dropshipping Starter
-        </a>{" "}
-        by Jamie Barton.
+          Nukko
+        </a>
+        , nuestra tienda de ropa que acaba de nacer, diseñada para ofrecerte un
+        estilo fresco, moderno y accesible.
       </p>
       <p>
-        Build your own Headless eCommerce storefront with Next.js and Snipcart,
-        and deliver swag powered by Printful. End to end commerce, styled using
-        TailwindCSS and deployed on Vercel.
+        En Nukko encontrarás prendas únicas pensadas para destacar, con diseños
+        que combinan confort y tendencia. Todo nuestro proceso está impulsado por
+        una visión sostenible y con un enfoque especial en la calidad.
+      </p>
+      <p>
+        Únete a nuestra comunidad y sé parte del inicio de esta emocionante
+        aventura. Estamos construyendo algo especial para ti, con amor y
+        dedicación.
+      </p>
+      <p className="text-center font-semibold mt-6">
+        🌟 Gracias por elegir Nukko. ¡Estamos felices de tenerte aquí! 🌟
       </p>
     </div>
   );
