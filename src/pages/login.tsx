@@ -126,8 +126,8 @@ const Login: React.FC = () => {
         </>
       )}
       <p className="mt-6 text-center text-sm">
-        <a href="#" className="text-blue-500 hover:underline">
-          Return to principal page
+        <a href="/register" className="text-blue-500 hover:underline">
+          Register
         </a>
       </p>
     </div>

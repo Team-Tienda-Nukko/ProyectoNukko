@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 
 import useWishlistDispatch from "../hooks/useWishlistDispatch";
@@ -17,6 +17,14 @@ const Product = (product) => {
   const [activeVariantExternalId, setActiveVariantExternalId] = useState(
     firstVariant.external_id
   );
+
+  const [username, setUsername] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Recuperar el username desde localStorage
+    const storedUsername = localStorage.getItem("username");
+    setUsername(storedUsername);
+  }, []);
 
   const activeVariant = variants.find(
     (v) => v.external_id === activeVariantExternalId
@@ -37,6 +45,7 @@ const Product = (product) => {
 
   return (
     <article className="border border-gray-200 rounded bg-white flex flex-col relative">
+      {/* Botón de wishlist */}
       <button
         aria-label="Add to wishlist"
         className="appearance-none absolute top-0 right-0 mt-3 mr-3 text-gray-300 focus:text-gray-500 hover:text-red-500 transition focus:outline-none"
@@ -62,6 +71,8 @@ const Product = (product) => {
           </svg>
         )}
       </button>
+
+      {/* Imagen del producto */}
       <div className="flex items-center justify-center flex-1 sm:flex-shrink-0 w-full p-6">
         {activeVariantFile && (
           <Image
@@ -73,12 +84,16 @@ const Product = (product) => {
           />
         )}
       </div>
+
+      {/* Nombre y precio */}
       <div className="flex-1 p-6 pt-0">
         <div className="text-center">
           <p className="mb-1 font-semibold text-gray-900">{name}</p>
           <p className="text-sm text-gray-500">{formattedPrice}</p>
         </div>
       </div>
+
+      {/* Selector de variante y botón de compra */}
       <div className="p-3 flex flex-col sm:flex-row justify-center items-center">
         <VariantPicker
           value={activeVariantExternalId}
@@ -88,17 +103,21 @@ const Product = (product) => {
           variants={variants}
           disabled={oneStyle}
         />
-        <button
-          className="snipcart-add-item w-full md:w-auto transition flex-shrink-0 py-2 px-4 border border-gray-300 hover:border-transparent shadow-sm text-sm font-medium bg-white text-gray-900 focus:text-white hover:bg-blue-600 hover:text-white focus:bg-blue-600 focus:outline-none rounded"
-          data-item-id={activeVariantExternalId}
-          data-item-price={activeVariant.retail_price}
-          data-item-url={`/api/products/${activeVariantExternalId}`}
-          data-item-description={activeVariant.name}
-          data-item-image={activeVariantFile.preview_url}
-          data-item-name={name}
-        >
-          Add to Cart
-        </button>
+
+        {/* Mostrar el botón "Add to Cart" solo si el usuario está autenticado */}
+        {username && (
+          <button
+            className="snipcart-add-item w-full md:w-auto transition flex-shrink-0 py-2 px-4 border border-gray-300 hover:border-transparent shadow-sm text-sm font-medium bg-white text-gray-900 focus:text-white hover:bg-blue-600 hover:text-white focus:bg-blue-600 focus:outline-none rounded"
+            data-item-id={activeVariantExternalId}
+            data-item-price={activeVariant.retail_price}
+            data-item-url={`/api/products/${activeVariantExternalId}`}
+            data-item-description={activeVariant.name}
+            data-item-image={activeVariantFile.preview_url}
+            data-item-name={name}
+          >
+            Add to Cart
+          </button>
+        )}
       </div>
     </article>
   );
