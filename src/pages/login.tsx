@@ -108,12 +108,15 @@ const Login: React.FC = () => {
               Sign in with Google
             </button>
           </div>
-          <p className="mt-6 text-center text-sm">
-            <a href="#" className="text-blue-500 hover:underline">
-              Return to principal page
-            </a>
-          </p>
-        </div>
+        </>
+      )}
+      <p className="mt-6 text-center text-sm">
+        <a href="/register" className="text-blue-500 hover:underline">
+          Register
+        </a>
+      </p>
+    </div>
+
   );
 };
 
