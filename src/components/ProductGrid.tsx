@@ -18,7 +18,6 @@ const ProductGrid = ({ products }) => {
   return (
     <div>
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold">All Products</h1>
         <select
           onChange={(e) => setFilter(e.target.value || null)}
           value={filter || ""}
