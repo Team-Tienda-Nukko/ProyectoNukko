@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
 import { auth } from '../utils/Firebase'; 
 
 const Register: React.FC = () => {
@@ -23,16 +23,21 @@ const Register: React.FC = () => {
     }
 
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
 
-      // Mostrar mensaje de éxito
-      setSuccessMessage("Account created successfully! Redirecting to login...");
+      // Enviar correo de verificación
+      await sendEmailVerification(user);
 
-      // Redirigir a la página de login después de 2 segundos
+      setSuccessMessage(
+        "Account created successfully! We've sent you a verification email. Please check your inbox. Redirecting to login..."
+      );
+
+      // Redirigir a la página de login después de 4 segundos
       setTimeout(() => {
         router.push("/login");
-      }, 2000);
-    } catch (err) {
+      }, 4000);
+    } catch (err: any) {
       setError("Error creating account: " + err.message);
     }
   };
