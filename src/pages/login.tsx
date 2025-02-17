@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../utils/Firebase";
+import { useAuth } from "../context/AuthContext"; // ✅ Importamos el contexto de autenticación
 
 const provider = new GoogleAuthProvider();
 
@@ -8,17 +9,7 @@ const Login: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
-  const [username, setUsername] = useState<string | null>(
-    typeof window !== "undefined" ? localStorage.getItem("username") : null
-  );
-
-  useEffect(() => {
-    // Load the username from localStorage on mount
-    const storedUsername = localStorage.getItem("username");
-    if (storedUsername) {
-      setUsername(storedUsername);
-    }
-  }, []);
+  const { username, setUsername } = useAuth(); // ✅ Obtenemos `username` y `setUsername` del contexto
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -33,12 +24,10 @@ const Login: React.FC = () => {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
-      // Save username to localStorage
+      // ✅ Guardar usuario en el contexto en lugar de usar localStorage
       const username = user.email || "User";
-      localStorage.setItem("username", username);
       setUsername(username);
 
-      alert(`Welcome, ${username}!`);
     } catch (err) {
       setError("Invalid email or password.");
     }
@@ -49,21 +38,18 @@ const Login: React.FC = () => {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
 
-      // Save username to localStorage
+      // ✅ Guardar usuario en el contexto
       const username = user.displayName || "User";
-      localStorage.setItem("username", username);
       setUsername(username);
 
-      alert(`Welcome, ${username}!`);
     } catch (err) {
       setError("Failed to sign in with Google.");
     }
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("username");
+    // ✅ Borrar usuario del contexto
     setUsername(null);
-    alert("You have logged out.");
   };
 
   return (
@@ -103,11 +89,6 @@ const Login: React.FC = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <div className="text-right">
-              <a href="#" className="text-sm text-blue-500 hover:underline">
-                Forgot your password?
-              </a>
-            </div>
             <button
               type="submit"
               className="w-full bg-black text-white py-3 rounded hover:bg-gray-800"
